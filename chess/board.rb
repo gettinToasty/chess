@@ -90,7 +90,16 @@ class Board
     end
   end
 
-  def checkmate(color)
+  def checkmate?(color)
+
+    pieces = []
+    @grid.each do |row|
+      row.each do |el|
+        pieces << el if el.color && el.color == color
+      end
+    end
+
+    in_check?(color) && pieces.all? { |piece| piece.valid_moves.empty? }
   end
 
 end
