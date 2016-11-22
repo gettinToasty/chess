@@ -1,6 +1,7 @@
 require_relative 'piece'
 require_relative 'sliding_pieces'
 require_relative 'stepping_pieces'
+require_relative 'pawn'
 
 class Board
 
@@ -17,7 +18,7 @@ class Board
         if i <=1 || i >= 6
           @grid[i][i2] = Knight.new([i, i2])
         else
-          @grid[i][i2] = nil
+          @grid[i][i2] = NullPiece.instance
         end
       end
     end

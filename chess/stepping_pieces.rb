@@ -12,7 +12,7 @@ module SteppingPiece
       next if x_new < 0 || x_new > 7
       next if y_new < 0 || y_new > 7
       updated_pos = [x_new, y_new]
-      possibles << updated_pos if board[updated_pos].nil?
+      possibles << updated_pos if board[updated_pos].is_a?(NullPiece)
     end
 
     possibles

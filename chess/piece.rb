@@ -1,3 +1,5 @@
+require 'singleton'
+
 class Piece
 
   attr_reader :symbol, :position
@@ -19,6 +21,17 @@ class Piece
   end
 
   def move_into_check(to_pos)
+  end
+
+end
+
+class NullPiece < Piece
+
+  include Singleton
+
+  def initialize
+    @color = nil
+    @symbol = nil
   end
 
 end
