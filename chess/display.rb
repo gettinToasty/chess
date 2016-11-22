@@ -12,10 +12,10 @@ class Display
   def render
     @board.grid.each_with_index do |row, i|
       row.each_with_index do |el, i2|
-        if el.nil?
-          print @cursor.cursor_pos == [i, i2] ? "_ ".colorize(:red) : "_ "
+        if @cursor.cursor_pos == [i, i2]
+          print "#{el.symbol} ".colorize( :background => :light_red )
         else
-          print @cursor.cursor_pos == [i, i2] ? "@ ".colorize(:red) : "@ "
+          print "#{el.symbol} "
         end
       end
       puts ""

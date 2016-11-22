@@ -15,8 +15,14 @@ class Board
   def add_pieces
     @grid.each_with_index do |row, i|
       row.each_index do |i2|
-        if i <=1 || i >= 6
-          @grid[i][i2] = Knight.new([i, i2])
+        if i == 0
+          @grid[i][i2] = end_row([i, i2], "black")
+        elsif i == 1
+          @grid[i][i2] = Pawn.new([i, i2], "black")
+        elsif i == 6
+          @grid[i][i2] = Pawn.new([i, i2], "white")
+        elsif i == 7
+          @grid[i][i2] = end_row([i, i2], "white")
         else
           @grid[i][i2] = NullPiece.instance
         end
@@ -32,6 +38,20 @@ class Board
   def []=(pos, val)
     x, y = pos
     @grid[x][y] = val
+  end
+
+  def end_row(pos, color)
+
+    case pos[1]
+    when 0 then Rook.new(pos, color)
+    when 1 then Knight.new(pos, color)
+    when 2 then Bishop.new(pos, color)
+    when 3 then King.new(pos, color)
+    when 4 then Queen.new(pos, color)
+    when 5 then Bishop.new(pos, color)
+    when 6 then Knight.new(pos, color)
+    when 7 then Rook.new(pos, color)
+    end
   end
 
   def move_piece(start_pos, end_pos)

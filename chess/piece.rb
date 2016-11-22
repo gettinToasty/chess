@@ -4,10 +4,10 @@ class Piece
 
   attr_reader :symbol, :position
 
-  def initialize(position)
+  def initialize(position, color)
     @position = position
     @board = nil
-    @color = nil
+    @color = color
     @symbol = nil
   end
 
@@ -31,7 +31,7 @@ class NullPiece < Piece
 
   def initialize
     @color = nil
-    @symbol = nil
+    @symbol = " "
   end
 
 end

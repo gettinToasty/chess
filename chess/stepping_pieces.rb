@@ -29,9 +29,9 @@ end
 class King < Piece
   include SteppingPiece
 
-  def initialize(pos)
+  def initialize(pos, color)
     super
-    @symbol = "9"
+    @symbol = @color == "black" ?  '♚' : '♔'
   end
 
   def move_diffs
@@ -43,9 +43,9 @@ end
 class Knight < Piece
   include SteppingPiece
 
-  def initialize(pos)
+  def initialize(pos, color)
     super
-    @symbol = "2"
+    @symbol = @color == "black" ?  '♞' : '♘'
   end
 
   def move_diffs

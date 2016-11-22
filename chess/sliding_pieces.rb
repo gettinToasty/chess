@@ -45,9 +45,9 @@ end
 class Bishop < Piece
   include SlidingPiece
 
-  def initialize(pos)
+  def initialize(pos, color)
     super
-    @symbol = "4"
+    @symbol = @color == "black" ?  '♝' : '♗'
   end
 
   def move_dirs
@@ -59,9 +59,9 @@ end
 class Rook < Piece
   include SlidingPiece
 
-  def initialize(pos)
+  def initialize(pos, color)
     super
-    @symbol = "3"
+    @symbol = @color == "black" ?  '♜' : '♖'
   end
 
   def move_dirs
@@ -73,9 +73,9 @@ end
 class Queen < Piece
   include SlidingPiece
 
-  def initialize(pos)
+  def initialize(pos, color)
     super
-    @symbol = "8"
+    @symbol = @color == "black" ?  '♛' : '♕'
   end
 
   def move_dirs
