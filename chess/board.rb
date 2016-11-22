@@ -8,9 +8,8 @@ class Board
 
   attr_reader :grid
 
-  def initialize
-    @grid = Array.new(8) { Array.new(8) }
-    add_pieces
+  def initialize(grid = Array.new(8) { Array.new(8) } )
+    @grid = grid
   end
 
   def add_pieces
@@ -100,6 +99,23 @@ class Board
     end
 
     in_check?(color) && pieces.all? { |piece| piece.valid_moves.empty? }
+  end
+
+  def dup
+
+    new_g = @grid.map do |row|
+      row.map do |el|
+        clone_piece(el)
+      end
+    end
+
+    Board.new(new_g)
+  end
+
+  def clone_piece(piece)
+    dup_class = piece.class
+    return dup_class.instance if piece.is_a?(NullPiece)
+    dup_class.new(piece.position, piece.color)
   end
 
 end
