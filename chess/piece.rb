@@ -2,7 +2,8 @@ require 'singleton'
 
 class Piece
 
-  attr_reader :symbol, :position
+  attr_reader :symbol, :color
+  attr_accessor :position
 
   def initialize(position, color)
     @position = position

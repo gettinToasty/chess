@@ -55,16 +55,16 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    raise if self[start_pos].nil?
-    raise if self[end_pos]
+    raise if self[start_pos].is_a?(NullPiece)
+    raise unless self[end_pos].is_a?(NullPiece)
 
-    begin
-      self[end_pos] = self[start_pos]
-      self[start_pos] = nil
+
+    self[end_pos] = self[start_pos]
+    self[end_pos].position = end_pos
+    self[start_pos] = NullPiece.instance
     rescue
       puts "Invalid move"
 
-    end
 
   end
 

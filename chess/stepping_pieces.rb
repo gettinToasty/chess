@@ -13,6 +13,10 @@ module SteppingPiece
       next if y_new < 0 || y_new > 7
       updated_pos = [x_new, y_new]
       possibles << updated_pos if board[updated_pos].is_a?(NullPiece)
+
+      unless board[updated_pos].color == board[current_pos].color
+        possibles << updated_pos
+      end
     end
 
     possibles

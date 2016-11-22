@@ -20,6 +20,11 @@ module SlidingPiece
         updated_pos[0] += rel_pos[0]
         updated_pos[1] += rel_pos[1]
       end
+
+      unless board[current_pos].color == board[updated_pos].color
+        possibles << updated_pos
+      end
+
     end
     possibles
   end
