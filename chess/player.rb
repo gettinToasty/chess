@@ -3,31 +3,41 @@ require_relative 'display'
 
 class HumanPlayer
 
-  def initialize(name, board)
-    @board = board
+  attr_reader :name, :color
+  attr_accessor :board
+
+  def initialize(name, color)
+    @board = nil
     @name = name
-    @cursor = Cursor.new([0, 0], board)
-    @display = Display.new(@board, @cursor)
+    @color = color
   end
+
 
   def get_pos
     move = nil
+    cursor = Cursor.new([0, 0], @board)
+    display = Display.new(@board, cursor)
 
     until move
       system('clear')
-      @display.render
-      move = @cursor.get_input
+      display.render
+      move = cursor.get_input
     end
+    move
   end
 
   def play_turn
     start_pos = get_pos
     end_pos = get_pos
 
+    raise if @board[start_pos].color != @color
+    p "Move from #{start_pos} to #{end_pos}"
+    sleep(1)
     board.move_piece(start_pos, end_pos)
-    @display.render
+
   rescue
     puts "Invalid move"
+    sleep(1)
     retry
 
   end

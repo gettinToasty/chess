@@ -58,7 +58,6 @@ class Board
 
   def move_piece(start_pos, end_pos)
     raise if self[start_pos].is_a?(NullPiece)
-    raise unless self[end_pos].is_a?(NullPiece)
     raise unless self[start_pos].valid_moves.include?(end_pos)
 
     self[start_pos].position = end_pos
@@ -70,7 +69,6 @@ class Board
 
   def move_piece!(start_pos, end_pos)
     raise if self[start_pos].is_a?(NullPiece)
-    raise unless self[end_pos].is_a?(NullPiece)
 
     self[start_pos].position = end_pos
     self[end_pos] = self[start_pos]
