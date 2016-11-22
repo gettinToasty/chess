@@ -1,23 +1,21 @@
 require 'colorize'
-require_relative 'cursor'
-require_relative 'board'
 
 class Display
 
-  def initialize(board)
+  def initialize(board, cursor)
     @board = board
-    @cursor = Cursor.new([0, 0], board)
+    @cursor = cursor
   end
 
   def render
     @board.grid.each_with_index do |row, i|
       row.each_with_index do |el, i2|
         if @cursor.cursor_pos == [i, i2]
-          print "#{el.symbol} ".colorize( :background => :light_red )
+          print " #{el.symbol} ".colorize( :background => :light_red )
         elsif (i + i2).even?
-          print "#{el.symbol} ".colorize( :background => :light_black )
+          print " #{el.symbol} ".colorize( :background => :light_black )
         else
-          print "#{el.symbol} "
+          print " #{el.symbol} "
         end
       end
       puts ""
@@ -25,14 +23,6 @@ class Display
     nil
   end
 
-  def move_around
-    move = nil
 
-    until move
-      system('clear')
-      render
-      move = @cursor.get_input
-    end
-  end
 
 end
