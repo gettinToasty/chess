@@ -14,7 +14,7 @@ module SlidingPiece
       x_test = updated_pos[0] >= 0 && updated_pos[0] < 8
       y_test = updated_pos[1] >= 0 && updated_pos[1] < 8
 
-      next unless (x_test && y_test)
+      next unless x_test && y_test
       while board[updated_pos].is_a?(NullPiece)
 
         possibles << updated_pos.dup

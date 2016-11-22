@@ -59,12 +59,12 @@ class Board
     raise if self[start_pos].is_a?(NullPiece)
     raise unless self[end_pos].is_a?(NullPiece)
 
-
+    self[start_pos].position = end_pos
     self[end_pos] = self[start_pos]
-    self[end_pos].position = end_pos
+
     self[start_pos] = NullPiece.instance
-    rescue
-      puts "Invalid move"
+  rescue
+    puts "Invalid move"
 
 
   end
@@ -77,7 +77,7 @@ class Board
         op_king = el if el.is_a?(King) && el.color == color
       end
     end
-    # debugger
+
     pieces = []
     @grid.each do |row|
       row.each do |el|
@@ -86,7 +86,6 @@ class Board
     end
 
     pieces.any? do |piece|
-      p piece
       piece.moves(piece.position, self).include?(op_king.position)
     end
   end
