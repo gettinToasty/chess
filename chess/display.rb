@@ -14,6 +14,8 @@ class Display
       row.each_with_index do |el, i2|
         if @cursor.cursor_pos == [i, i2]
           print "#{el.symbol} ".colorize( :background => :light_red )
+        elsif (i + i2).even?
+          print "#{el.symbol} ".colorize( :background => :light_black )
         else
           print "#{el.symbol} "
         end
