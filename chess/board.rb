@@ -26,8 +26,10 @@ class Board
         else
           @grid[i][i2] = NullPiece.instance
         end
+        @grid[i][i2].board = self
       end
     end
+
   end
 
   def [](pos)
