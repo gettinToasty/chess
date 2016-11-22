@@ -2,6 +2,7 @@ require_relative 'piece'
 require_relative 'sliding_pieces'
 require_relative 'stepping_pieces'
 require_relative 'pawn'
+require 'byebug'
 
 class Board
 
@@ -66,6 +67,31 @@ class Board
       puts "Invalid move"
 
 
+  end
+
+  def in_check?(color)
+
+    op_king = nil
+    @grid.each do |row|
+      row.each do |el|
+        op_king = el if el.is_a?(King) && el.color == color
+      end
+    end
+    # debugger
+    pieces = []
+    @grid.each do |row|
+      row.each do |el|
+        pieces << el if el.color && el.color != color
+      end
+    end
+
+    pieces.any? do |piece|
+      p piece
+      piece.moves(piece.position, self).include?(op_king.position)
+    end
+  end
+
+  def checkmate(color)
   end
 
 end
