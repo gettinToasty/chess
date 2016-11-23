@@ -5,32 +5,49 @@ module SlidingPiece
 
   def moves(current_pos, board)
     possibles = []
+
     move_dirs.each do |rel_pos|
+      p rel_pos
+
       x_new = current_pos[0] + rel_pos[0]
       y_new = current_pos[1] + rel_pos[1]
 
       updated_pos = [x_new, y_new]
 
-      x_test = updated_pos[0] >= 0 && updated_pos[0] < 8
-      y_test = updated_pos[1] >= 0 && updated_pos[1] < 8
+      p check_pos?(updated_pos)
 
-      if x_test && y_test
+
+      if check_pos?(updated_pos)
+        p @board[updated_pos].class
 
         while @board[updated_pos].is_a?(NullPiece)
+          p updated_pos
+          p board[updated_pos].class
+          possibles << updated_pos.dup if check_pos?(updated_pos)
 
-          possibles << updated_pos.dup
+          #test_pos = [updated_pos[0] + rel_pos[0], updated_pos[1] +rel_pos[1]]
 
-          updated_pos[0] += rel_pos[0] if x_test
-          updated_pos[1] += rel_pos[1] if y_test
+          updated_pos[0] += rel_pos[0] #if check_pos?(test_pos)
+          updated_pos[1] += rel_pos[1] #if check_pos?(test_pos)
+          break unless check_pos?(updated_pos)
         end
-
-        unless @board[current_pos].color == @board[updated_pos].color
-          possibles << updated_pos
+        p "hello #{updated_pos}"
+        unless @board[updated_pos] && @board[current_pos].color == @board[updated_pos].color
+          possibles << updated_pos if check_pos?(updated_pos)
+          p board[updated_pos].class
         end
       end
 
     end
+    p possibles
     possibles
+  end
+
+  def check_pos?(pos)
+    x_test = pos[0] >= 0 && pos[0] < 8
+    y_test = pos[1] >= 0 && pos[1] < 8
+
+    x_test && y_test
   end
 
   def move_dirs
