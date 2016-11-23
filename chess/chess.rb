@@ -11,6 +11,8 @@ class ChessGame
     @player2 = player2
     @player1.board = @board
     @player2.board = @board
+    @player1.update_curs_disp
+    @player2.update_curs_disp
 
   end
 

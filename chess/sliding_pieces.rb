@@ -14,17 +14,19 @@ module SlidingPiece
       x_test = updated_pos[0] >= 0 && updated_pos[0] < 8
       y_test = updated_pos[1] >= 0 && updated_pos[1] < 8
 
-      next unless x_test && y_test
-      while board[updated_pos].is_a?(NullPiece)
+      if x_test && y_test
 
-        possibles << updated_pos.dup
+        while @board[updated_pos].is_a?(NullPiece)
 
-        updated_pos[0] += rel_pos[0]
-        updated_pos[1] += rel_pos[1]
-      end
+          possibles << updated_pos.dup
 
-      unless board[current_pos].color == board[updated_pos].color
-        possibles << updated_pos
+          updated_pos[0] += rel_pos[0] if x_test
+          updated_pos[1] += rel_pos[1] if y_test
+        end
+
+        unless @board[current_pos].color == @board[updated_pos].color
+          possibles << updated_pos
+        end
       end
 
     end
@@ -52,7 +54,7 @@ end
 class Bishop < Piece
   include SlidingPiece
 
-  def initialize(pos, color)
+  def initialize(pos, color, board)
     super
     @symbol = @color == "black" ?  '♝' : '♗'
   end
@@ -66,7 +68,7 @@ end
 class Rook < Piece
   include SlidingPiece
 
-  def initialize(pos, color)
+  def initialize(pos, color, board)
     super
     @symbol = @color == "black" ?  '♜' : '♖'
   end
@@ -80,7 +82,7 @@ end
 class Queen < Piece
   include SlidingPiece
 
-  def initialize(pos, color)
+  def initialize(pos, color, board)
     super
     @symbol = @color == "black" ?  '♛' : '♕'
   end

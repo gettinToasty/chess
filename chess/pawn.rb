@@ -3,7 +3,7 @@ require 'byebug'
 
 class Pawn < Piece
 
-  def initialize(pos, color)
+  def initialize(pos, color, board)
     super
     @symbol = @color == "black" ?  '♟' : '♙'
   end
@@ -27,15 +27,15 @@ class Pawn < Piece
 
         if idx == 0
           block = [x_new - pot_moves[1][0], y_new]
-          if board[updated_pos].is_a?(NullPiece) && !board[block].color
+          if @board[updated_pos].is_a?(NullPiece) && !@board[block].color
             possibles << updated_pos
           end
 
         elsif idx == 1
-          possibles << updated_pos if board[updated_pos].is_a?(NullPiece)
+          possibles << updated_pos if @board[updated_pos].is_a?(NullPiece)
         else
-          share_color = board[updated_pos].color == board[current_pos].color
-          unless board[updated_pos].is_a?(NullPiece) || share_color
+          share_color = @board[updated_pos].color == @board[current_pos].color
+          unless @board[updated_pos].is_a?(NullPiece) || share_color
             possibles << updated_pos
           end
         end
@@ -43,11 +43,9 @@ class Pawn < Piece
       else
 
         if idx == 0
-          possibles << updated_pos if board[updated_pos].is_a?(NullPiece)
-        else
-          if board[updated_pos].color != board[current_pos].color
-            possibles << updated_pos
-          end
+          possibles << updated_pos if @board[updated_pos].is_a?(NullPiece)
+        elsif @board[updated_pos].color != @board[current_pos].color
+          possibles << updated_pos
         end
 
       end

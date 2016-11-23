@@ -12,9 +12,9 @@ module SteppingPiece
       next if x_new < 0 || x_new > 7
       next if y_new < 0 || y_new > 7
       updated_pos = [x_new, y_new]
-      possibles << updated_pos if board[updated_pos].is_a?(NullPiece)
+      possibles << updated_pos if @board[updated_pos].is_a?(NullPiece)
 
-      unless board[updated_pos].color == board[current_pos].color
+      unless @board[updated_pos].color == @board[current_pos].color
         possibles << updated_pos
       end
     end
@@ -33,7 +33,7 @@ end
 class King < Piece
   include SteppingPiece
 
-  def initialize(pos, color)
+  def initialize(pos, color, board)
     super
     @symbol = @color == "black" ?  '♚' : '♔'
   end
@@ -47,7 +47,7 @@ end
 class Knight < Piece
   include SteppingPiece
 
-  def initialize(pos, color)
+  def initialize(pos, color, board)
     super
     @symbol = @color == "black" ?  '♞' : '♘'
   end

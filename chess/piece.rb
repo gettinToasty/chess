@@ -5,9 +5,9 @@ class Piece
   attr_reader :symbol, :color
   attr_accessor :position, :board
 
-  def initialize(position, color)
+  def initialize(position, color, board)
     @position = position
-    @board = nil
+    @board = board
     @color = color
     @symbol = nil
   end

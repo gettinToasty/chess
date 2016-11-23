@@ -18,15 +18,14 @@ class Board
         if i == 0
           @grid[i][i2] = end_row([i, i2], "black")
         elsif i == 1
-          @grid[i][i2] = Pawn.new([i, i2], "black")
+          @grid[i][i2] = Pawn.new([i, i2], "black", self)
         elsif i == 6
-          @grid[i][i2] = Pawn.new([i, i2], "white")
+          @grid[i][i2] = Pawn.new([i, i2], "white", self)
         elsif i == 7
           @grid[i][i2] = end_row([i, i2], "white")
         else
           @grid[i][i2] = NullPiece.instance
         end
-        @grid[i][i2].board = self
       end
     end
 
@@ -45,14 +44,14 @@ class Board
   def end_row(pos, color)
 
     case pos[1]
-    when 0 then Rook.new(pos, color)
-    when 1 then Knight.new(pos, color)
-    when 2 then Bishop.new(pos, color)
-    when 3 then King.new(pos, color)
-    when 4 then Queen.new(pos, color)
-    when 5 then Bishop.new(pos, color)
-    when 6 then Knight.new(pos, color)
-    when 7 then Rook.new(pos, color)
+    when 0 then Rook.new(pos, color, self)
+    when 1 then Knight.new(pos, color, self)
+    when 2 then Bishop.new(pos, color, self)
+    when 3 then King.new(pos, color, self)
+    when 4 then Queen.new(pos, color, self)
+    when 5 then Bishop.new(pos, color, self)
+    when 6 then Knight.new(pos, color, self)
+    when 7 then Rook.new(pos, color, self)
     end
   end
 
@@ -127,7 +126,7 @@ class Board
   def clone_piece(piece)
     dup_class = piece.class
     return dup_class.instance if piece.is_a?(NullPiece)
-    dup_class.new(piece.position, piece.color)
+    dup_class.new(piece.position, piece.color, piece.board)
   end
 
 end

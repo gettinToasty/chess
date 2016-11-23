@@ -10,18 +10,23 @@ class HumanPlayer
     @board = nil
     @name = name
     @color = color
+
+  end
+
+  def update_curs_disp
+    @cursor = Cursor.new([0, 0], @board)
+    @display = Display.new(@board, @cursor)
   end
 
 
   def get_pos
     move = nil
-    cursor = Cursor.new([0, 0], @board)
-    display = Display.new(@board, cursor)
+
 
     until move
       system('clear')
-      display.render
-      move = cursor.get_input
+      @display.render
+      move = @cursor.get_input
     end
     move
   end
@@ -35,10 +40,10 @@ class HumanPlayer
     sleep(1)
     board.move_piece(start_pos, end_pos)
 
-  rescue
-    puts "Invalid move"
-    sleep(1)
-    retry
+  # rescue
+  #   puts "Invalid move"
+  #   sleep(1)
+  #   retry
 
   end
 
