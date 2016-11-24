@@ -7,40 +7,33 @@ module SlidingPiece
     possibles = []
 
     move_dirs.each do |rel_pos|
-      p rel_pos
 
-      x_new = current_pos[0] + rel_pos[0]
-      y_new = current_pos[1] + rel_pos[1]
-
-      updated_pos = [x_new, y_new]
-
-      p check_pos?(updated_pos)
-
-
-      if check_pos?(updated_pos)
-        p @board[updated_pos].class
-
-        while @board[updated_pos].is_a?(NullPiece)
-          p updated_pos
-          p board[updated_pos].class
-          possibles << updated_pos.dup if check_pos?(updated_pos)
-
-          #test_pos = [updated_pos[0] + rel_pos[0], updated_pos[1] +rel_pos[1]]
-
-          updated_pos[0] += rel_pos[0] #if check_pos?(test_pos)
-          updated_pos[1] += rel_pos[1] #if check_pos?(test_pos)
-          break unless check_pos?(updated_pos)
-        end
-        p "hello #{updated_pos}"
-        unless @board[updated_pos] && @board[current_pos].color == @board[updated_pos].color
-          possibles << updated_pos if check_pos?(updated_pos)
-          p board[updated_pos].class
-        end
-      end
-
+      possibles += grow_unblocked_moves_in_dir(rel_pos[0], rel_pos[1])
     end
-    p possibles
     possibles
+  end
+
+  def grow_unblocked_moves_in_dir(dx, dy)
+    current_x = @position[0]
+    current_y = @position[1]
+    possibles_dir = []
+
+    loop do
+      current_x = current_x + dx
+      current_y = current_y + dy
+      pos = [current_x, current_y]
+
+      break unless check_pos?(pos)
+
+      if @board[pos].is_a?(NullPiece)
+        possibles_dir << pos
+      elsif @board[pos].color != @color
+        possibles_dir << pos
+        break
+      end
+    end
+
+    possibles_dir
   end
 
   def check_pos?(pos)
@@ -61,10 +54,6 @@ module SlidingPiece
   def diagonal_dirs
     [[1, 1], [-1, 1], [-1, -1], [1, -1]]
   end
-
-  def grow_unblocked_moves_in_dir(dx, dy)
-  end
-
 
 end
 

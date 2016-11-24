@@ -36,14 +36,15 @@ class HumanPlayer
     end_pos = get_pos
 
     raise if @board[start_pos].color != @color
+    raise if @board[start_pos].move_into_check?(end_pos)
     p "Move from #{start_pos} to #{end_pos}"
     sleep(1)
     board.move_piece(start_pos, end_pos)
 
-  # rescue
-  #   puts "Invalid move"
-  #   sleep(1)
-  #   retry
+  rescue
+    puts "Invalid move"
+    sleep(1)
+    retry
 
   end
 
